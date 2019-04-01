@@ -1,6 +1,6 @@
 package models
 
-//Token en
+//Token envolver el token generado(claim)
 type Token struct {
 	Token string `json:"token"`
 }

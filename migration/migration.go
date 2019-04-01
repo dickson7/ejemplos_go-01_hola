@@ -7,7 +7,7 @@ import (
 	"github.com/dickson7/proyectogocomentarios/models"
 )
 
-//Migrate se conecta a la BD
+//Migrate se conecta a la BD y permie crear las tablas
 func Migrate() {
 	db := configuration.GetConnection()
 	defer db.Close()

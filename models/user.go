@@ -2,7 +2,7 @@ package models
 
 import "github.com/jinzhu/gorm"
 
-// User contiene informacion de usuario
+// User contiene informacion de usuario del sistema
 type User struct {
 	gorm.Model
 	// como se va a consumi via json no se utiliza mayuscula
