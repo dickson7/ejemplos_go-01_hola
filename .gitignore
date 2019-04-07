@@ -1,6 +1,19 @@
+##
 # Carpetas
+#
 
 
+
+##
 #Ejecutables
+#
 proyectogocomentarios
 proyectogocomentarios.exe
+
+
+
+
+##
+# Archivo de configuracion
+#
+config.json
