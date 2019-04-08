@@ -10,13 +10,15 @@ si no ejecuta migrate el valor seria no y no se llama a migrate
 
 #Ejecución
 ./proyectogocomentarios
-proyectogocomentarios.exe 
+proyectogocomentarios.exe
 
 
 #Crear usuarios
 #POST
+
 localhost:8080/api/users/
 
+#json
 {
 "username":"dickson",
 "email":"garciadickson258@gmail.com",
@@ -29,6 +31,7 @@ localhost:8080/api/users/
 #POST
 localhost:8080/api/login
 
+#json
 {
 "email":"garciadickson258@gmail.com",
 "password":"admin1234"
