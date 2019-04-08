@@ -3,8 +3,12 @@ package main
 import (
 	"flag"
 	"log"
+	"net/http"
+
+	"github.com/urfave/negroni"
 
 	"github.com/dickson7/proyectogocomentarios/migration"
+	"github.com/dickson7/proyectogocomentarios/routes"
 )
 
 // para ejecutar la aplicacion y ejecutar la migracion
@@ -22,4 +26,21 @@ func main() {
 		migration.Migrate()
 		log.Println("Finalizo la migración.")
 	}
+
+	// inicializacion de la rutas
+	router := routes.InitRoutes()
+
+	// inicializa los middlewares
+	n := negroni.Classic()
+	n.UseHandler(router)
+
+	// Inicia el servidor
+	server := &http.Server{
+		Addr:    ":8080",
+		Handler: n,
+	}
+	log.Println("Iniciado el servidor en http://localhost:8080")
+	log.Println(server.ListenAndServe())
+	log.Println("Finalizó la ejecucion del programa")
+
 }
