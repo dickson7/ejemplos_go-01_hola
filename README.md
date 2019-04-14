@@ -36,3 +36,20 @@ localhost:8080/api/login
 "email":"garciadickson258@gmail.com",
 "password":"admin1234"
 }
+
+#Registrar comentarios
+Se realiza el Login
+#POST
+ruta_http://localhost:8080/api/comments/
+
+Headers
+Content-type: application/json
+Authorization: Token del usuario
+
+#json
+{
+	"userId": 1,
+	"parentId": 0, // es cero porque no es un comentario hijo
+	"votes": 0,  // aun no tiene votos
+	"content": "Nuestro primer comentario"
+}
