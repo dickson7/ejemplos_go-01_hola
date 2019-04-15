@@ -53,3 +53,9 @@ Authorization: Token del usuario
 	"votes": 0,  // aun no tiene votos
 	"content": "Nuestro primer comentario"
 }
+
+#consulta de proyectogocomentarios
+#GET
+localhost:8080/api/comments/
+
+Debe contener el token 
