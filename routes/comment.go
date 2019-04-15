@@ -11,6 +11,8 @@ func SetCommentRouter(router *mux.Router) {
 	prefix := "/api/comments"
 	subRouter := mux.NewRouter().PathPrefix(prefix).Subrouter().StrictSlash(true)
 	subRouter.HandleFunc("/", controllers.CommentCreate).Methods("POST")
+	//ruta para mostrar comentarios
+	subRouter.HandleFunc("/", controllers.CommentGetAll).Methods("GET")
 
 	//validamos el token
 	router.PathPrefix(prefix).Handler(
