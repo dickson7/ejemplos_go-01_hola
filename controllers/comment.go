@@ -79,6 +79,15 @@ func CommentGetAll(w http.ResponseWriter, r *http.Request) {
 	}
 	//ejecutamos la consulta y guardamos en un slice
 	cComment.Find(&comments)
+	// recorremos el slice para agregar el usuario a cada comentario
+	for i := range comments {
+		db.Model(&comments[i]).Related(&comments[i].User)
+		// en este recorrido tambien trae el password entonces debemos enviarlo vacio
+		comments[i].User[0].Password = ""
+		// tambien aprovechamos para buscar los comentarios +hijos
+		comments[i].Children = commentGetChilden(comments[i].ID)
+	}
+
 	// devolvemos todos los comentarios en un json
 	j, err := json.Marshal(comments)
 	if err != nil {
@@ -96,4 +105,19 @@ func CommentGetAll(w http.ResponseWriter, r *http.Request) {
 		m.Message = "No se encontraron comentarios"
 		commons.DisplayMessage(w, m)
 	}
+}
+
+// commentGetChilden comentarios hijos funcion interna
+func commentGetChilden(id uint) (children []models.Comment) {
+	db := configuration.GetConnection()
+	defer db.Close()
+
+	db.Where("parent_id = ?", id).Find(&children)
+	//buscamos el usuario que hizo el comentario hijo
+	for i := range children {
+		db.Model(&children[i]).Related(&children[i].User)
+		// en este recorrido tambien trae el password entonces debemos enviarlo vacio
+		children[i].User[0].Password = ""
+	}
+	return
 }
