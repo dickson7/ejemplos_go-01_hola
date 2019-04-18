@@ -54,8 +54,13 @@ Authorization: Token del usuario
 	"content": "Nuestro primer comentario"
 }
 
+#Comentario sin utilizar usuario ya que lo extrae del token 
+{
+	"content": "otror comentario sin ID de usuario"
+}
+
 #consulta de proyectogocomentarios
 #GET
 localhost:8080/api/comments/
 
-Debe contener el token 
+Debe contener el token

@@ -18,6 +18,10 @@ func CommentCreate(w http.ResponseWriter, r *http.Request) {
 	comment := models.Comment{}
 	m := models.Message{}
 
+	// traemos el usuario del contexto
+	user := models.User{}
+	user, _ = r.Context().Value("user").(models.User)
+
 	err := json.NewDecoder(r.Body).Decode(&comment)
 	if err != nil {
 		m.Code = http.StatusBadRequest
@@ -25,6 +29,8 @@ func CommentCreate(w http.ResponseWriter, r *http.Request) {
 		commons.DisplayMessage(w, m)
 		return
 	}
+	comment.UserID = user.ID
+
 	// si el comentario fue leido con exito y no dio ningun error
 	// nos conectamos a la base de datos y creamos el registro
 
@@ -49,9 +55,9 @@ func CommentGetAll(w http.ResponseWriter, r *http.Request) {
 	comments := []models.Comment{}
 	m := models.Message{}
 	user := models.User{}
-	//vote := models.Vote{}
+	vote := models.Vote{}
 
-	r.Context().Value(&user)
+	user, _ = r.Context().Value("user").(models.User)
 
 	// /api/comments/?order=votes&idlimit=10
 	// Con esta linea obtenemos lo que esta luego del / en la ruta
@@ -86,6 +92,19 @@ func CommentGetAll(w http.ResponseWriter, r *http.Request) {
 		comments[i].User[0].Password = ""
 		// tambien aprovechamos para buscar los comentarios +hijos
 		comments[i].Children = commentGetChilden(comments[i].ID)
+
+		// se busca le voto del usuario en sesion
+		vote.CommentID = comments[i].ID
+		vote.UserID = user.ID
+		count := db.Where(&vote).Find(&vote).RowsAffected
+		if count > 0 {
+			if vote.Value {
+				comments[i].HasVote = 1
+			} else {
+				comments[i].HasVote = -1
+			}
+		}
+
 	}
 
 	// devolvemos todos los comentarios en un json
