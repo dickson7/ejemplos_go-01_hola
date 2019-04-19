@@ -1,12 +1,27 @@
 "# proyectogocomentarios"
 Este proyecto abarca el Backend para el manejo de comentarios. Es una api  donde se valida el ingreso de  los usuarios los comentarios realizados y los votados tanto positivos como negativos.
 
+#Ayuda
+
+./proyectogocomentarios -h
+proyectogocomentarios.exe -h
+
 #Instalación
 para ejecutar la aplicacion y ejecutar la migracion
 ./proyectogocomentarios --migrate yes
 proyectogocomentarios.exe --migrate yes
 de esta manera se generan las tablas en la BD
 si no ejecuta migrate el valor seria no y no se llama a migrate
+
+#Puerto del servidor web
+Si el puerto por defecto (8080) esta ocupado
+
+./proyectogocomentarios -port xxxx
+proyectogocomentarios.exe -port xxxx
+
+para cambiar de puerto y subir el servidor 
+
+
 
 #Ejecución
 ./proyectogocomentarios
@@ -54,7 +69,7 @@ Authorization: Token del usuario
 	"content": "Nuestro primer comentario"
 }
 
-#Comentario sin utilizar usuario ya que lo extrae del token 
+#Comentario sin utilizar usuario ya que lo extrae del token
 {
 	"content": "otror comentario sin ID de usuario"
 }
